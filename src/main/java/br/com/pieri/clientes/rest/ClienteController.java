@@ -30,7 +30,7 @@ public class ClienteController {
 	public Cliente acharPorId(@PathVariable Integer id){
 		return repository
 				.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 	}
 
 //	Aqui um jeito diferente de fazer o mapeamento do parametro quando usar nome diferente
@@ -47,7 +47,7 @@ public class ClienteController {
 					repository.delete(cliente);
 					return Void.TYPE;
 				})
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 //		poderia usar repository.deleteById(id) mas não daria uma informacao adequada caso já não existisse no BD
 	}
 
@@ -61,6 +61,6 @@ public class ClienteController {
 					return repository.save(clienteAtualizado);
 //					é importante colocar um return não nulo ou acaba caindo na implementacao do orElseThrow
 				})
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 	}
 }
