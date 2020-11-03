@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/clientes/")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
 	private ClienteRepository repository;
@@ -62,5 +63,10 @@ public class ClienteController {
 //					é importante colocar um return não nulo ou acaba caindo na implementacao do orElseThrow
 				})
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+	}
+
+	@GetMapping
+	public List<Cliente> obterTodos(){
+		return repository.findAll();
 	}
 }
